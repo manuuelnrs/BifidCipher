@@ -1,13 +1,13 @@
 /**
  * @author Juan Manuel Nava Rosales
  * @date 11/septiembre/2022
+ * @brief Bidif Cipher Algorithm - Cryptography - Practice 1
  * @version 1.0
  */
 package Controlador;
 
-import java.util.*;
-
 public class Bifid {
+    
     public static void main(String[] args) {
         String key = "ENCRYPT";
         
@@ -19,13 +19,19 @@ public class Bifid {
                                     {'4','U','V','W','X','Z'}};
                
         System.out.println( "Key: " + key );
-        String message = "HOLA";
+        String message = "MEET ME ON FRIDAY";
         String cipherText = Encryption( PermutAlphabet, message );       
+        System.out.println( "Cipher Text : "+ cipherText );
         
-        System.out.println( " Cipher Text : "+ cipherText );
+        String messageOrigin = Decryption( PermutAlphabet, cipherText );
+        System.out.println("Origin Text : "+ messageOrigin);
         watchTable(PermutAlphabet);
     }
     
+    /**
+    * @brief función que permite ver la tabla en consola
+    * @param tabla tipo Array 2D
+    */
     static void watchTable( int[][] x ){
         for( int i = 0 ; i < x.length ; i++ ){
             for( int j = 0 ; j < x[0].length ; j++ )
@@ -34,7 +40,14 @@ public class Bifid {
         }
     }
     
+    /**
+    * @brief función que aplica algoritmo de Bidif para cifrar mensaje
+    * @param tabla tipo Array 2D
+    * @param message mensaje original a cifrar
+    * @return String Cipher Text
+    */
     static String Encryption( int[][] table, String message ){
+        message = message.replace(" ","");
         int indices[] = new int[ message.length()*2 ];
         
         // Búsqueda de pares (índices)
@@ -43,20 +56,45 @@ public class Bifid {
                 for( int col = 1 ; col < table[0].length ; col++ ) //Iterador por columnas de Tabla
                     if( table[row][col] == message.charAt(pos) ){
                         indices[pos]=row-1;
-                        indices[pos+4]=col-1;
+                        indices[pos+message.length()]=col-1;
                     }
         
-        for( int i = 0; i < indices.length;i++)
-            System.out.print(indices[i]);
-        
-        String cipherT = "";
         // Búsqueda de cipherText a partir de índices
+        String cipherT = "";
         for( int ind = 0 ; ind < indices.length ; ind+=2 )      //Iterador de Indices
             for( int row = 1 ; row < table.length ; row++)      //Iterador por filas de Tabla
                 for( int col = 1 ; col < table[0].length ; col++)//Iterador por columnas de Tabla
                     if( indices[ind] == (row-1) && indices[ind+1] == (col-1) )
                         cipherT += (char)table[row][col];
         return cipherT;
+    }
+    
+    /**
+    * @brief función que aplica algoritmo de Bidif para decifrar mensaje
+    * @param tabla tipo Array 2D
+    * @param cipherT Cipher Text
+    * @return String Message Decrypt
+    */
+    static String Decryption(int[][] table, String cipherT){
+        int indices[] = new int[ cipherT.length()*2 ];
+        
+        // Búsqueda de pares (índices)
+        for( int pos = 0, i = 0 ; pos < indices.length ; pos+=2, i++ )        //Iterador de indices
+            for( int row = 1 ; row < table.length ; row++ )        //Iterador por filas de Tabla
+                for( int col = 1 ; col < table[0].length ; col++ ) //Iterador por columnas de Tabla
+                    if( table[row][col] == cipherT.charAt(i) ){
+                        indices[pos]=row-1;
+                        indices[pos+1]=col-1;
+                    }
+        
+        // Búsqueda del mensaje a partir de índices
+        String message = "";
+        for( int ind = 0 ; ind < indices.length/2 ; ind++ )      //Iterador de Indices
+            for( int row = 1 ; row < table.length ; row++)      //Iterador por filas de Tabla
+                for( int col = 1 ; col < table[0].length ; col++)//Iterador por columnas de Tabla
+                    if( indices[ind] == (row-1) && indices[ind+cipherT.length()] == (col-1) )
+                        message += (char)table[row][col];
+        return message;
     }
     
 } //End Class
