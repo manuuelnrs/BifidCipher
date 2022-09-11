@@ -1,5 +1,8 @@
-/*
-*/
+/**
+ * @author Juan Manuel Nava Rosales
+ * @date 11/septiembre/2022
+ * @version 1.0
+ */
 package Controlador;
 
 import java.util.*;
@@ -17,16 +20,9 @@ public class Bifid {
                
         System.out.println( "Key: " + key );
         String message = "HOLA";
+        String cipherText = Encryption( PermutAlphabet, message );       
         
-        int indices[] = new int[ message.length()*2 ];
-        Encryption( PermutAlphabet, indices, message );
-        
-        System.out.println("INDICES: ");
-        for( int i = 0; i < indices.length; i++)
-            System.out.println(indices[i]);
-        
-        
-        System.out.println("");
+        System.out.println( " Cipher Text : "+ cipherText );
         watchTable(PermutAlphabet);
     }
     
@@ -38,18 +34,29 @@ public class Bifid {
         }
     }
     
-    static void Encryption( int[][] x, int[] indices, String message ){
-        for( int pos = 0 ; pos < indices.length/2 ; pos++ ){
-            for( int row = 1 ; row < x.length ; row++ ){
-                for( int col = 1 ; col < x[0].length ; col++ ){
-                    if( x[row][col] == message.charAt(pos) ){
+    static String Encryption( int[][] table, String message ){
+        int indices[] = new int[ message.length()*2 ];
+        
+        // Búsqueda de pares (índices)
+        for( int pos = 0 ; pos < indices.length/2 ; pos++ )        //Iterador de indices
+            for( int row = 1 ; row < table.length ; row++ )        //Iterador por filas de Tabla
+                for( int col = 1 ; col < table[0].length ; col++ ) //Iterador por columnas de Tabla
+                    if( table[row][col] == message.charAt(pos) ){
                         indices[pos]=row-1;
                         indices[pos+4]=col-1;
-                        System.out.println("Pareja "+(row-1)+","+(col-1)+" de "+ (char)(x[row][col]) );
                     }
-                }
-            }
-        }
+        
+        for( int i = 0; i < indices.length;i++)
+            System.out.print(indices[i]);
+        
+        String cipherT = "";
+        // Búsqueda de cipherText a partir de índices
+        for( int ind = 0 ; ind < indices.length ; ind+=2 )      //Iterador de Indices
+            for( int row = 1 ; row < table.length ; row++)      //Iterador por filas de Tabla
+                for( int col = 1 ; col < table[0].length ; col++)//Iterador por columnas de Tabla
+                    if( indices[ind] == (row-1) && indices[ind+1] == (col-1) )
+                        cipherT += (char)table[row][col];
+        return cipherT;
     }
     
 } //End Class
