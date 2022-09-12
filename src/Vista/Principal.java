@@ -37,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
         labResult3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Bifid Cipher - Practice 1");
+        setTitle("BC - PRACTICE 1");
         setName("Principal"); // NOI18N
         setResizable(false);
 
