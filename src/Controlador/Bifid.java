@@ -8,12 +8,12 @@ package Controlador;
 import Vista.Principal;
 
 public class Bifid {
-    public static int[][] PermutAlphabet = {  {'_','0','1','2','3','4'},
-                                    {'0','E','N','C','R','Y'},
-                                    {'1','P','T','A','B','D'},
-                                    {'2','F','G','H','I','K'},
-                                    {'3','L','M','O','Q','S'},
-                                    {'4','U','V','W','X','Z'}};
+    public static int[][] PermutAlphabet = {{'_','0','1','2','3','4'},
+                                            {'0','E','N','C','R','Y'},
+                                            {'1','P','T','A','B','D'},
+                                            {'2','F','G','H','I','K'},
+                                            {'3','L','M','O','Q','S'},
+                                            {'4','U','V','W','X','Z'}};
     
     public static void main(String[] args) {
         String key = "ENCRYPT";
@@ -24,11 +24,19 @@ public class Bifid {
         //Desarrollo en consola de Practica 1
         System.out.println( "Key: " + key );
         String message = "MEET ME ON FRIDAY";
-        String cipherText = Encryption( PermutAlphabet, message );       
-        System.out.println( "Cipher Text : "+ cipherText );
-        String messageOrigin = Decryption( PermutAlphabet, cipherText );
-        System.out.println("Origin Text : "+ messageOrigin);
+        String cipherText = Encryption( PermutAlphabet, message );   
+        System.out.println( "Cipher Text: "+ cipherText );
+        String messageOrg = Decryption( PermutAlphabet, cipherText );
+        System.out.println("Decipher Text : "+ messageOrg);
         watchTable(PermutAlphabet);
+        // inciso 2 (a)
+        System.out.println("\n\tEncrypt: BRING ALL YOUR MONEY");
+        String cipherText2 = Encryption( PermutAlphabet, "BRING ALL YOUR MONEY" );
+        System.out.println( "Cipher Text: "+ cipherText2 );
+        // inciso 2 (b) 
+        System.out.println("\n\tDecrypt: PDRRNGBENOPNIAGGF");
+        String messageOrg2 = Decryption( PermutAlphabet, "PDRRNGBENOPNIAGGF" );
+        System.out.println("Decipher Text : "+ messageOrg2);
     }
     
     /**
@@ -45,7 +53,7 @@ public class Bifid {
     
     /**
     * @brief función que aplica algoritmo de Bidif para cifrar mensaje
-    * @param tabla tipo Array 2D
+    * @param table tipo Array 2D
     * @param message mensaje original a cifrar
     * @return String Cipher Text
     */
@@ -74,7 +82,7 @@ public class Bifid {
     
     /**
     * @brief función que aplica algoritmo de Bidif para decifrar mensaje
-    * @param tabla tipo Array 2D
+    * @param table tipo Array 2D
     * @param cipherT Cipher Text
     * @return String Message Decrypt
     */
