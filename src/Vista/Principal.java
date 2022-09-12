@@ -7,6 +7,7 @@
 
 package Vista;
 import Controlador.Bifid;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -192,16 +193,28 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bEncryptActionPerformed
 
     private void bEncryptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bEncryptMouseClicked
-        labResult.setText( Bifid.Encryption( Bifid.PermutAlphabet,tfMsg.getText()) );
-        labResultMsg.setText("");
+        if(tfMsg.getText().matches("[A-Z]*")){
+            labResult.setText( Bifid.Encryption( Bifid.PermutAlphabet,tfMsg.getText()) );
+            labResultMsg.setText("");
+        } else{
+            JOptionPane.showMessageDialog(null, "Enter text in uppercase and without letters. [A-Z]",
+               "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_bEncryptMouseClicked
 
     private void bDecryptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bDecryptMouseClicked
-        labResultMsg.setText( Bifid.Decryption(Bifid.PermutAlphabet,tfMsg.getText()) );
+        if(tfMsg.getText().matches("[A-Z]*")){
+            labResultMsg.setText( Bifid.Decryption(Bifid.PermutAlphabet,tfMsg.getText()) );
         labResult.setText("");
+        } else{
+            JOptionPane.showMessageDialog(null, "Enter text in uppercase and without letters. [A-Z]",
+               "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_bDecryptMouseClicked
 
-    public static void main(String args[]) {
+    public static void GUIPrincipal() {
         /* LOOK AND FEEL */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

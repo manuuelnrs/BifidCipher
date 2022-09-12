@@ -19,7 +19,7 @@ public class Bifid {
         String key = "ENCRYPT";
         
         // MAIN PROGRAM DISPLAY //
-        Principal.main(args);
+        Principal.GUIPrincipal();
         
         //Desarrollo en consola de Practica 1
         System.out.println( "Key: " + key );
