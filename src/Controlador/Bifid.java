@@ -5,24 +5,27 @@
  * @version 1.0
  */
 package Controlador;
+import Vista.Principal;
 
 public class Bifid {
-    
-    public static void main(String[] args) {
-        String key = "ENCRYPT";
-        
-        int[][] PermutAlphabet = {  {'_','0','1','2','3','4'},
+    public static int[][] PermutAlphabet = {  {'_','0','1','2','3','4'},
                                     {'0','E','N','C','R','Y'},
                                     {'1','P','T','A','B','D'},
                                     {'2','F','G','H','I','K'},
                                     {'3','L','M','O','Q','S'},
                                     {'4','U','V','W','X','Z'}};
-               
+    
+    public static void main(String[] args) {
+        String key = "ENCRYPT";
+        
+        // MAIN PROGRAM DISPLAY //
+        Principal.main(args);
+        
+        //Desarrollo en consola de Practica 1
         System.out.println( "Key: " + key );
         String message = "MEET ME ON FRIDAY";
         String cipherText = Encryption( PermutAlphabet, message );       
         System.out.println( "Cipher Text : "+ cipherText );
-        
         String messageOrigin = Decryption( PermutAlphabet, cipherText );
         System.out.println("Origin Text : "+ messageOrigin);
         watchTable(PermutAlphabet);
@@ -46,7 +49,7 @@ public class Bifid {
     * @param message mensaje original a cifrar
     * @return String Cipher Text
     */
-    static String Encryption( int[][] table, String message ){
+    public static String Encryption( int[][] table, String message ){
         message = message.replace(" ","");
         int indices[] = new int[ message.length()*2 ];
         
@@ -75,7 +78,7 @@ public class Bifid {
     * @param cipherT Cipher Text
     * @return String Message Decrypt
     */
-    static String Decryption(int[][] table, String cipherT){
+    public static String Decryption(int[][] table, String cipherT){
         int indices[] = new int[ cipherT.length()*2 ];
         
         // Búsqueda de pares (índices)
